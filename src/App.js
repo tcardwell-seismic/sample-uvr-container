@@ -1,24 +1,30 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { seismicTheme, Theme } from '@seismic/mantle';
+import { UniversalVideoRecorder } from '@seismic/universal-video-recorder';
 import './App.css';
 
 function App() {
+  const [isOpen, setIsOpen] = useState(false);
+  const gatewayUrl = "";
+  const getAuthToken = () => "";
+
+  function onClose(video, content) {
+    console.log(video);
+    console.log(content);
+    setIsOpen(false);
+  }
+
+  function onEvent() {
+    console.log("onEvent");
+  }
+
   return (
+    <Theme theme={seismicTheme({ useGlobal: true })}>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={() => setIsOpen(!isOpen)}>Open the UVR!</button>
+      <UniversalVideoRecorder open={isOpen} onClose={onClose} onEvent={onEvent} gatewayUrl={gatewayUrl} getAuthToken={getAuthToken} />
     </div>
+    </Theme>
   );
 }
 
